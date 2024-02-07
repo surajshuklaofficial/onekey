@@ -42,7 +42,7 @@ export const columns: ColumnDef<Task>[] = [
     ),
     cell: ({ row }) => (
       <div className="w-[200px] flex flex-col">
-        <span className="text-nowrap text-black">{row.getValue("person")}</span>
+        {/* <span className="text-nowrap text-black">{row.getValue("person")}</span> */}
         <span className="text-gray-500">{row.getValue("username")}</span>
       </div>
     ),

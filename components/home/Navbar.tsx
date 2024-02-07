@@ -31,7 +31,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="p-4 lg:px-16 lg:py-6 flex items-center justify-between border-b-4 dark:bg-black">
+    <header className="px-4 lg:px-16 lg:py-6 flex items-center justify-between border-b-4 dark:bg-black">
       <Link href="/">
         <figure className="flex items-center gap-0.5">
           <Image src={LOGO} width="40" height="40" alt="logo" />

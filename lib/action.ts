@@ -1,7 +1,8 @@
 'use server'
 
 import { redirect } from "next/navigation";
-import { sendVerificationCode, signup, verify } from "./api";
+import { fetchUsers, sendVerificationCode, signup, verify } from "./api";
+import { PaginationState } from "@tanstack/react-table";
 
 export const signupAsync = async (userAuthInfo: AuthData) => {
   let response;  // Declare the response variable outside the try block
@@ -47,6 +48,16 @@ export const sendVerificationCodeAsync = async (authorizationData: Authorization
     const response = await sendVerificationCode(authorizationData);
     console.log(response.data)
     return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const fetchUsersAsync = async ({pageIndex, pageSize}: PaginationState) => {
+  try {
+    const response = await fetchUsers({pageIndex, pageSize});
+    // console.log(response.data, "HI", response.data.data.length)
+    return response.data.data;
   } catch (e) {
     console.log(e);
   }

@@ -11,11 +11,10 @@ type VerificationData = {
   verificationCode: string | null
 }
 
-interface FetchParams {
-  limit: number, 
-  q?: string,
-  offset: number,
-};
+// interface FetchParams {
+//   pageCount
+//   pageIndex: number
+// };
 
 interface AuthorizationData {
   grant_type: "authorization_code",

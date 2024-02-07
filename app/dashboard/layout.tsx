@@ -23,7 +23,7 @@ export default function RootLayout({
       <Header />
       <div className="flex">
         <Sidebar options={sidebarOptions} />
-        <div className="pl-60 pt-40">{children}</div>
+        <div className="pl-60 pt-24">{children}</div>
       </div>
     </main>
   );

@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ setShowSidebar }) => {
   const [accountVisible, setAccountVisible] = useState(false);
   //   const navigate = useNavigate();
   //   const dispatch = useDispatch<Dispatch>();
-  const currentUrl = location.href;
+  const currentUrl = window.location.href;
   //   const userInfo = useSelector(selectuserInfo);
 
   const handleToggle = () => {
