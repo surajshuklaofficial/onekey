@@ -23,3 +23,11 @@ interface AuthorizationData {
   client_id: string,
   client_secret: string
 }
+
+interface Person {
+  person: "suraj shukla"
+  status: "on boarding",
+  primary_email: string,
+  username: string,
+  password: string
+}

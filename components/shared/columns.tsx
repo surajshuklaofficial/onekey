@@ -36,13 +36,13 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     id: "username",
-    accessorFn: (row) => `${row.person} ${row.username}`,
+    accessorFn: (row) => `${row.username}`,
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Person & Username" />
     ),
     cell: ({ row }) => (
-      <div className="w-[200px] flex flex-col">
-        {/* <span className="text-nowrap text-black">{row.getValue("person")}</span> */}
+      <div className="w-[200px]">
+        {/* <span className="text-black">{row.getValue("person")}</span><br /> */}
         <span className="text-gray-500">{row.getValue("username")}</span>
       </div>
     ),

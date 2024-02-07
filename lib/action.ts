@@ -1,7 +1,7 @@
 'use server'
 
 import { redirect } from "next/navigation";
-import { fetchUsers, sendVerificationCode, signup, verify } from "./api";
+import { createUser, fetchUsers, sendVerificationCode, signup, verify } from "./api";
 import { PaginationState } from "@tanstack/react-table";
 
 export const signupAsync = async (userAuthInfo: AuthData) => {
@@ -57,6 +57,15 @@ export const fetchUsersAsync = async ({pageIndex, pageSize}: PaginationState) =>
   try {
     const response = await fetchUsers({pageIndex, pageSize});
     // console.log(response.data, "HI", response.data.data.length)
+    return response.data.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const createUsersAsync = async (person: Person) => {
+  try {
+    const response = await createUser({...person, status: "on boarding", person: "suraj shukla"});
     return response.data.data;
   } catch (e) {
     console.log(e);
