@@ -15,4 +15,8 @@ export const sendVerificationCode = (authorizationData: AuthorizationData) => AP
 
 // export const fetchUsers = ({limit, offset, q}: FetchParams) => API.post(`principal-user-admin/users/list?limit=${limit}&offset=${offset}&q=${q}`);
 export const fetchUsers = ({pageIndex, pageSize}: PaginationState) => API.get(`http://localhost:8080/data?_page=${pageIndex + 1}&_per_page=${pageSize}`);
+export const fetchAllUsers = () => API.get(`http://localhost:8080/data`);
+
 export const createUser = (person: Person) => API.post("http://localhost:8080/data", person)
+
+// export const createUser = (person: Person) => fetch("http://localhost:8080/data", )

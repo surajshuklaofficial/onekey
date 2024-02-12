@@ -38,7 +38,7 @@ import {
             <Button
               variant="ghost"
               size="sm"
-              className="-ml-3 h-8 data-[state=open]:bg-accent"
+              className="-ml-3 h-8 data-[state=open]:bg-accent data-[state=open]:text-white"
             >
               <span>{title}</span>
               {column.getIsSorted() === "desc" ? (
@@ -50,17 +50,17 @@ import {
               )}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+          <DropdownMenuContent align="start" className="bg-white">
+            <DropdownMenuItem onClick={() => column.toggleSorting(false)} className="hover:text-white">
               <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
               Asc
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+            <DropdownMenuItem onClick={() => column.toggleSorting(true)} className="hover:text-white">
               <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
               Desc
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
+            <DropdownMenuItem onClick={() => column.toggleVisibility(false)} className="hover:text-white">
               <EyeNoneIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
               Hide
             </DropdownMenuItem>

@@ -39,6 +39,6 @@ body {
   }
 
   .flex-center {
-    @apply flex justify-between items-center;
+    @apply flex justify-center items-center;
   }
 } 

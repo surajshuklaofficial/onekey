@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -28,47 +27,47 @@ import {
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { fetchUsersAsync } from "@/lib/action";
+import { useEffect, useMemo, useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  // data: TData[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
-  data,
 }: DataTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [newdata, setNewData] =  React.useState(data);
+  const [rowSelection, setRowSelection] = useState({});
+  const [columnVisibility, setColumnVisibility] =  useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] =  useState<ColumnFiltersState>([]);
+  const [sorting, setSorting] =  useState<SortingState>([]);
+  const [newdata, setNewData] =  useState({data: [], count: 0});
 
-  const [pagination, setPagination] = React.useState<PaginationState>(
+  const [pagination, setPagination] = useState<PaginationState>(
     { pageIndex: 0,
       pageSize: 10,
     }
   );
 
-  const defaultData = React.useMemo(() => [], []);
+  const defaultData = useMemo(() => [], []);
 
-  React.useEffect(() => {
+  useEffect(() => {
 
     const call = async () => {
       const t = await fetchUsersAsync(pagination);
       setNewData(t);
-      console.log(t);
+      // console.log(t);
     }
 
     call();
-  }, [pagination])
+  }, [pagination, sorting])
 
 
-
+  {console.log(newdata)}
   const table = useReactTable({
-    data: newdata,
+    data: newdata.data,
     columns,
-    pageCount: 100,
+    pageCount: newdata.count,
     state: {
       sorting,
       columnVisibility,
@@ -101,7 +100,7 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
+                    <TableHead key={header.id} colSpan={header.colSpan} className={ `${header.id !== "username"? "hover:text-white": ""}`}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -115,7 +114,7 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {table.getRowModel() && table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}

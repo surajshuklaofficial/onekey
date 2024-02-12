@@ -1,28 +1,12 @@
 {
   "data": [
     {
-      "id": "4635",
       "primary_email": "surajshukla5604@gmail.com",
-      "username": "surajshukla7656@gmail.com",
+      "username": "123",
       "password": "123",
       "status": "on boarding",
-      "person": "suraj shukla"
-    },
-    {
-      "id": "44e3",
-      "primary_email": "surajshukla5604@gmail.com",
-      "username": "surajshukla7656",
-      "password": "123",
-      "status": "on boarding",
-      "person": "suraj shukla"
-    },
-    {
-      "id": "389e",
-      "primary_email": "surajshukla5604@gmail.com",
-      "username": "surajshukla7656",
-      "password": "123",
-      "status": "on boarding",
-      "person": "suraj shukla"
+      "person": "suraj shukla",
+      "id": 1
     }
   ],
   "persons": [
