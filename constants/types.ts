@@ -4,11 +4,19 @@ type AuthData = {
     password: string;
     org_identifier: string;
     org_name: string;
-    repassword: string;
+    confirm_password: string;
   };
 
 type VerificationData = {
   verificationCode: string | null
+}
+interface Credentials {
+  email ?: string,
+  username ?: string,
+  password : string,
+  client_id: string,
+  scope: "principal-user:worker",
+  org_identifier: string
 }
 
 // interface FetchParams {

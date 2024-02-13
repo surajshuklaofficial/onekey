@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from 'next/navigation'
 
@@ -9,13 +8,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signup } from "@/lib/api";
 import { signupAsync } from "@/lib/action";
+import { useState } from "react";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function SignupForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter()
   const {
     register,
@@ -114,14 +113,14 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
               Password
             </Label>
             <Input
-              id="repassword"
-              placeholder="Enter Password Again"
+              id="confirm-password"
+              placeholder="Confirm Password"
               type="password"
               autoCapitalize="none"
               autoComplete="none"
               autoCorrect="off"
               disabled={isLoading}
-              {...register("repassword", { required: true })}
+              {...register("confirm_password", { required: true })}
             />
           </div>
           <Button disabled={isLoading}>

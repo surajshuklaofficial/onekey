@@ -6,6 +6,7 @@ import {
   fetchAllUsers,
   fetchUsers,
   sendVerificationCode,
+  signIn,
   signup,
   verify,
 } from "./api";
@@ -27,10 +28,38 @@ export const signupAsync = async (userAuthInfo: AuthData) => {
   }
 };
 
-export const loginAsync = async () => {
-  redirect(
-    "http://api.localhost/oauth2/authorize?grant_type=code&client_id=fe11e101-5a43-44c5-a1f7-3f07ce0b7841&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=email&state=hello"
-  );
+export const loginAsync = async (data: Credentials) => {
+  // redirect(
+  //   "http://api.localhost/oauth2/authorize?grant_type=code&client_id=fe11e101-5a43-44c5-a1f7-3f07ce0b7841&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=email&state=hello"
+  // );
+
+  // TODO: do something with static scope & client_id
+  try {
+    data = {
+      ...data,
+      client_id: "089f1ece-0632-4eb7-948a-ce86dc6c6e34",
+      scope: "principal-user:worker",
+    };
+    const response = await signIn(data);
+
+    // console.log(response.data , response);
+    if (response.status == 200) {
+    }
+
+    console.log(response.data)
+    // return response.data;
+  } catch (error) {
+    if (error) {
+      switch (error) {
+        case "CredentialsSignin":
+          return "Invalid credentials.";
+        default:
+          return "Something went wrong.";
+      }
+    }
+    throw error;
+  }
+  redirect("/dashboard");
 };
 
 export const verifyAsync = async (verficationData: VerificationData) => {

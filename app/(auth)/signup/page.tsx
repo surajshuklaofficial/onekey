@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function AuthenticationPage() {
   return (
     <>
-      <div className="w-9/12 m-auto mt-6 lg:mt-0 lg:w-auto container relative h-[800px] flex-col items-center justify-center grid lg:max-w-none  lg:grid-cols-2 lg:px-0">
+      <div className="w-9/12 m-auto mt-6 lg:mt-0 lg:w-auto container relative h-[800px] flex-col items-center justify-center grid lg:max-w-none  lg:px-0">
         <Link
           href="/login"
           className={cn(
@@ -26,29 +26,14 @@ export default function AuthenticationPage() {
         >
           Login
         </Link>
-        <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
-          <div className="absolute inset-0 bg-zinc-900" />
-          <div className="relative z-20 flex items-center text-lg font-medium gap-2">
-            <Image src={LOGO} width={36} height={36} alt="logo"></Image>
-            Onekey Inc
-          </div>
-          <div className="relative z-20 mt-auto">
-            <blockquote className="space-y-2">
-              <p className="text-lg">
-                &ldquo;Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Minima, vel dicta. Quisquam exercitationem beatae quaerat
-                dolorem necessitatibus vel, odit ut nostrum molestias non.
-                Dignissimos laudanti.&rdquo;
-              </p>
-              <footer className="text-sm">Suraj Shukla</footer>
-            </blockquote>
-          </div>
-        </div>
         <div className="lg:p-8">
           <div className="border-2 px-8 py-16 shadow-sm rounded-2xl mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[550px]">
+            <figure className="flex items-center gap-0.5 justify-center">
+              <Image src={LOGO} width="40" height="40" alt="logo" />
+            </figure>
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
-                Register to Continue
+                Register as an Organization Admin
               </h1>
               <p className="text-sm text-muted-foreground">
                 Enter your email below to create your account

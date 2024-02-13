@@ -18,5 +18,15 @@ export const fetchUsers = ({pageIndex, pageSize}: PaginationState) => API.get(`h
 export const fetchAllUsers = () => API.get(`http://localhost:8080/data`);
 
 export const createUser = (person: Person) => API.post("http://localhost:8080/data", person)
+export const signIn = (data: Credentials) => API.post("http://localhost:8000/auth/passwordflow/token?set_cookie=true", data, config)
 
 // export const createUser = (person: Person) => fetch("http://localhost:8080/data", )
+
+// export const signIn = (data: Credentials) => fetch("http://localhost:8000/auth/passwordflow/token", {
+//   method: "post",
+//   headers: {
+//     'Content-Type': 'application/x-www-form-urlencoded'
+//   },
+//   //serialize JSON body
+//   body: JSON.stringify(data)
+// })

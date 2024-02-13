@@ -1,32 +1,36 @@
 "use client";
 
-import * as React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-// import { Icons } from "@/components/icons"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signup } from "@/lib/api";
-import { loginAsync, signupAsync } from "@/lib/action";
+import { loginAsync } from "@/lib/action";
+import { TailSpin } from "react-loader-spinner";
+import { useState } from "react";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function SignupForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const router = useRouter()
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<AuthData>();
+  } = useForm<Credentials>();
 
-  const onSubmit: SubmitHandler<AuthData> = (data) => {
+  const onSubmit: SubmitHandler<Credentials> = (data) => {
     setIsLoading(true);
-    const info = loginAsync();
+    console.log(data);
+    const info = loginAsync(data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log("error", err));
     setIsLoading(false);
   };
 
@@ -34,21 +38,6 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-2">
-          <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Email
-            </Label>
-            <Input
-              id="email"
-              placeholder="Enter your Email"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
-              {...register("email", { required: true })}
-            />
-          </div>
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="username">
               Username
@@ -58,13 +47,13 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
               placeholder="username"
               type="string"
               autoCapitalize="none"
-              autoComplete="username"
+              autoComplete="off"
               autoCorrect="off"
               disabled={isLoading}
-              {...register("username", { required: true })}
+              {...register("username")}
             />
           </div>
-          <div className="grid gap-1 mt-8">
+          <div className="grid gap-1">
             <Label className="sr-only" htmlFor="password">
               Password
             </Label>
@@ -73,16 +62,25 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
               placeholder="Enter Password"
               type="password"
               autoCapitalize="none"
-              autoComplete="none"
+              autoComplete="off"
               autoCorrect="off"
               disabled={isLoading}
               {...register("password", { required: true })}
             />
           </div>
-          <Button disabled={isLoading}>
-            {/* {isLoading && (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            )} */}
+          <Button disabled={isLoading} className="mt-12">
+            {isLoading && (
+              <TailSpin
+                visible={true}
+                height="10"
+                width="10"
+                color="#209CEE"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            )}
             Sign In
           </Button>
         </div>
