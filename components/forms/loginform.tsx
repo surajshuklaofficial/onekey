@@ -1,9 +1,8 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,31 +10,37 @@ import { loginAsync } from "@/lib/action";
 import { TailSpin } from "react-loader-spinner";
 import { useState } from "react";
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export default function SignupForm({ className, ...props }: UserAuthFormProps) {
+// TODO: Handle other Signins
+export default function LoginupForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
+    setError,
   } = useForm<Credentials>();
 
   const onSubmit: SubmitHandler<Credentials> = (data) => {
     setIsLoading(true);
-    console.log(data);
-    const info = loginAsync(data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log("error", err));
+    const org_identifier = searchParams.get("org_identifier");
+    data = {
+      ...data,
+      org_identifier: org_identifier || "",
+      scope: "principal-user:admin",
+    };
+
+    loginAsync(data).catch((err) => {
+      console.log(err);
+      setError("error", { type: "custom", message: err.message });
+    });
+
     setIsLoading(false);
   };
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div className="grid gap-6">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-2">
           <div className="grid gap-1">
@@ -68,6 +73,9 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
               {...register("password", { required: true })}
             />
           </div>
+          {errors.error && (
+            <p className="text-red-500">*Invalid Credentials</p>
+          )}
           <Button disabled={isLoading} className="mt-12">
             {isLoading && (
               <TailSpin

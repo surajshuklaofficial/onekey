@@ -1,10 +1,7 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useRouter } from 'next/navigation'
-
 import { cn } from "@/lib/utils";
-// import { Icons } from "@/components/icons"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,17 +12,20 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function SignupForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const router = useRouter()
   const {
     register,
     handleSubmit,
-    watch,
+    setError,
     formState: { errors },
   } = useForm<AuthData>();
 
   const onSubmit: SubmitHandler<AuthData> = (data) => {
+    console.log(data);
     setIsLoading(true);
-    const info = signupAsync(data);
+    signupAsync(data).catch((err) => {
+      console.log(err);
+      setError("error", { type: "custom", message: err.message });
+    });
     setIsLoading(false);
   };
 
@@ -39,10 +39,10 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id="email"
-              placeholder="Enter your Email"
+              placeholder="Enter your Email*"
               type="email"
               autoCapitalize="none"
-              autoComplete="email"
+              autoComplete="off"
               autoCorrect="off"
               disabled={isLoading}
               {...register("email", { required: true })}
@@ -54,10 +54,10 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id="username"
-              placeholder="username"
+              placeholder="username*"
               type="string"
               autoCapitalize="none"
-              autoComplete="username"
+              autoComplete="off"
               autoCorrect="off"
               disabled={isLoading}
               {...register("username", { required: true })}
@@ -69,28 +69,28 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id="org_identifier"
-              placeholder="Enter Organization Identifier"
+              placeholder="Enter Your Organization*"
               type="text"
               autoCapitalize="none"
-              autoComplete="none"
+              autoComplete="off"
               autoCorrect="off"
               disabled={isLoading}
               {...register("org_identifier", { required: true })}
             />
           </div>
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="org_name">
-              Organization Name
+            <Label className="sr-only" htmlFor="preferred_name">
+              Preferred Name
             </Label>
             <Input
-              id="org_name"
-              placeholder="Enter Organization Name"
+              id="preferred_name"
+              placeholder="Preferred Name"
               type="text"
               autoCapitalize="none"
-              autoComplete="none"
+              autoComplete="off"
               autoCorrect="off"
               disabled={isLoading}
-              {...register("org_name", { required: true })}
+              {...register("preferred_name")}
             />
           </div>
           <div className="grid gap-1 mt-8">
@@ -99,36 +99,32 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id="password"
-              placeholder="Enter Password"
+              placeholder="Enter Password*"
               type="password"
               autoCapitalize="none"
-              autoComplete="none"
+              autoComplete="off"
               autoCorrect="off"
               disabled={isLoading}
               {...register("password", { required: true })}
             />
           </div>
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="password">
+            <Label className="sr-only" htmlFor="confirm-password">
               Password
             </Label>
             <Input
               id="confirm-password"
-              placeholder="Confirm Password"
+              placeholder="Confirm Password*"
               type="password"
               autoCapitalize="none"
-              autoComplete="none"
+              autoComplete="off"
               autoCorrect="off"
               disabled={isLoading}
               {...register("confirm_password", { required: true })}
             />
           </div>
-          <Button disabled={isLoading}>
-            {/* {isLoading && (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            )} */}
-            Register
-          </Button>
+          {errors.error && <p className="text-red-500">*Invalid Credentials</p>}
+          <Button disabled={isLoading}>Register</Button>
         </div>
       </form>
     </div>

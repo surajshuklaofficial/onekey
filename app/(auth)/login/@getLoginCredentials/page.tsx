@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import LoginForm from "../../../../components/forms/loginform";
 import LOGO from "@/public/logo.png";
-import OrgIdentifier from "@/components/forms/OrgIdentifier";
 
 export const metadata: Metadata = {
   title: "Login",

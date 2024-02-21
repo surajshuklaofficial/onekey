@@ -2,136 +2,86 @@
 
 import { redirect } from "next/navigation";
 import {
-  createUser,
-  fetchAllUsers,
-  fetchUsers,
-  sendVerificationCode,
+  authorize,
+  // createUser,
+  // fetchAllUsers,
+  // fetchUsers,
   signIn,
   signup,
-  verify,
 } from "./api";
-import { PaginationState } from "@tanstack/react-table";
 
 export const signupAsync = async (userAuthInfo: AuthData) => {
-  let response; // Declare the response variable outside the try block
-
+  let response;
   try {
     response = await signup(userAuthInfo);
-    console.log(response.data);
-    return response.data;
   } catch (e) {
+    console.log("Error due to signupAsync")
     console.log(e);
-  } finally {
-    if (response && response.status === 200) {
-      redirect("/verification-sent");
-    }
+  }
+
+  if (response && response.status === 200) {
+    redirect("/verification-sent");
   }
 };
 
 export const loginAsync = async (data: Credentials) => {
-  // redirect(
-  //   "http://api.localhost/oauth2/authorize?grant_type=code&client_id=fe11e101-5a43-44c5-a1f7-3f07ce0b7841&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=email&state=hello"
-  // );
+  let response;
 
-  // TODO: do something with static scope & client_id
   try {
-    data = {
-      ...data,
-      client_id: "089f1ece-0632-4eb7-948a-ce86dc6c6e34",
-      scope: "principal-user:worker",
-    };
-    const response = await signIn(data);
-
-    // console.log(response.data , response);
-    if (response.status == 200) {
-    }
-
-    console.log(response.data)
-    // return response.data;
-  } catch (error) {
-    if (error) {
-      switch (error) {
-        case "CredentialsSignin":
-          return "Invalid credentials.";
-        default:
-          return "Something went wrong.";
-      }
-    }
-    throw error;
+    response = await signIn(data);
+  } catch (error: any) {
+    console.log("Error due to loginAsync")
+    throw error?.response?.data?.detail; // response.status === 401 will be handled on loginform
   }
-  redirect("/dashboard");
-};
 
-export const verifyAsync = async (verficationData: VerificationData) => {
-  try {
-    console.log(verficationData);
-    const response = await verify(verficationData);
-    // console.log(response.data);
-    // if ((response.status = 200)) {
-    //   redirect("/dashboard");
-    // }
-    return response.data;
-  } catch (e) {
-    console.log(e);
-  } finally {
+  if (response && response.status === 200) {
     redirect("/dashboard");
   }
 };
 
-export const sendVerificationCodeAsync = async (
-  authorizationData: AuthorizationData
-) => {
+export const authorizeAsync = async () => {
+  let response;
+
   try {
-    console.log("hi", authorizationData);
-    const response = await sendVerificationCode(authorizationData);
-    console.log(response.data);
-    return response.data;
-  } catch (e) {
-    console.log(e);
+    response = await authorize();
+    console.log(response)
+  } catch (error: any) {
+    console.log("Error due to authorizeAsync")
+    // throw error?.response?.data?.detail; // response.status === 401 will be handled on loginform
   }
+  console.log(response)
 };
 
-interface UsersResponse {
-  data: Person[];
-}
+// export const fetchUsersAsync = async ({
+//   pageIndex,
+//   pageSize,
+// }: PaginationState): Promise<FetchUsersAsyncResponse> => {
+//   try {
+//     const usersResponse: UsersResponse = await fetchUsers({
+//       pageIndex,
+//       pageSize,
+//     });
+//     const allUsersResponse: UsersResponse = await fetchAllUsers();
 
-interface FetchUsersAsyncResponse {
-  data: Person[];
-  count: number;
-}
+//     const usersData: Person[] = usersResponse.data.length > 0 ? usersResponse.data : [];
+//     const usersCount: number = allUsersResponse.data.length;
 
-export const fetchUsersAsync = async ({
-  pageIndex,
-  pageSize,
-}: PaginationState): Promise<FetchUsersAsyncResponse> => {
-  try {
-    const usersResponse: UsersResponse = await fetchUsers({
-      pageIndex,
-      pageSize,
-    });
-    const allUsersResponse: UsersResponse = await fetchAllUsers();
+//     return { data: usersData, count: usersCount };
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
-    const usersData: Person[] =
-      usersResponse.data.length > 0 ? usersResponse.data : [];
-    const usersCount: number = allUsersResponse.data.length;
-
-    return { data: usersData, count: usersCount };
-  } catch (error) {
-    // Instead of just logging, throw the error so it can be handled by the caller
-    throw error;
-  }
-};
-
-export const createUsersAsync = async (person: Person) => {
-  try {
-    const response = await createUser({
-      ...person,
-      status: "on boarding",
-      person: "suraj shukla",
-    });
-    console.log(response);
-    return response.data.data;
-  } catch (e) {
-    console.log(e);
-  }
-};
+// export const createUsersAsync = async (person: Person) => {
+//   try {
+//     const response = await createUser({
+//       ...person,
+//       status: "on boarding",
+//       person: "suraj shukla",
+//     });
+//     console.log(response);
+//     return response.data.data;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };

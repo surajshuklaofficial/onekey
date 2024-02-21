@@ -6,7 +6,7 @@ import LOGO from "@/public/logo.png";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-
+// TODO: protect this page
 export default function VerificationSent() {
   return (
     <main className="flex-center flex-col p-16">

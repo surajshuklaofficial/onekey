@@ -65,7 +65,7 @@ export function AddNewPerson() {
             <Input
               id="email"
               className="col-span-3"
-              autoComplete="on"
+              autoComplete="off"
               {...register("primary_email", { required: true })}
             />
           </div>
@@ -87,7 +87,7 @@ export function AddNewPerson() {
             <Input
               id="password"
               className="col-span-3"
-              autoComplete="one"
+              autoComplete="off"
               {...register("password", { required: true })}
             />
           </div>

@@ -8,11 +8,11 @@ import SignupForm from "../../../components/forms/signupform";
 import LOGO from "@/public/logo.png";
 
 export const metadata: Metadata = {
-  title: "Login",
+  title: "Register",
   description: "Login",
 };
 
-export default function AuthenticationPage() {
+export default function RegisterPage() {
   return (
     <>
       <div className="w-9/12 m-auto mt-6 lg:mt-0 lg:w-auto container relative h-[800px] flex-col items-center justify-center grid lg:max-w-none  lg:px-0">

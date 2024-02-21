@@ -40,11 +40,12 @@ export default function OrgIdentifier() {
               autoComplete="off"
               autoCorrect="off"
               disabled={isLoading}
-              {...register("org_identifier", {required: true})}
+              {...register("org_identifier", { required: true })}
             />
           </div>
           <Button disabled={isLoading}>
-            Next&nbsp;&nbsp;<FaArrowRightLong />
+            Next&nbsp;&nbsp;
+            <FaArrowRightLong />
           </Button>
         </div>
       </form>
