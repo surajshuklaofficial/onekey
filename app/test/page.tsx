@@ -23,3 +23,22 @@ export default function page() {
     </div>
   );
 }
+
+// confirm_password
+// : 
+// "fadf"
+// email
+// : 
+// "test@gmail.com"
+// org_identifier
+// : 
+// "testingWorld"
+// password
+// : 
+// "#Testman@69"
+// preferred_name
+// : 
+// "nothing"
+// username
+// : 
+// "testman69"

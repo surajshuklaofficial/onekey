@@ -9,7 +9,7 @@ import LOGO from "@/public/logo.png";
 
 export const metadata: Metadata = {
   title: "Login",
-  description: "Login",
+  description: "Login page",
 };
 
 export default function LoginPage({

@@ -22,12 +22,4 @@ services:
         - path: .
           target: /app
           action: sync
-        - path: .
-          target: /components
-          action: sync
-        - path: .
-          target: /lib
-          action: sync
-        - path: .
-          target: /constants
-          action: sync
+

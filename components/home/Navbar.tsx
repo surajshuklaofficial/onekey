@@ -6,6 +6,7 @@ import LOGO from "@/public/logo.png";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { NavigationMenuDemo } from "./t";
 
 export default function Navbar() {
   const [toggle, setToggle] = useState<Boolean>(false);
@@ -31,33 +32,18 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="px-4 lg:px-16 lg:py-6 flex items-center justify-between border-b-4 dark:bg-black">
+    <header className="px-4 lg:px-16 lg:py-6 flex items-center justify-between sticky top-0 gradient-2  backdrop-blur-sm">
       <Link href="/">
         <figure className="flex items-center gap-0.5">
-          <Image src={LOGO} width="40" height="40" alt="logo" />
-          <p className="text-xl lg:text-4xl font-bold rubik text-[#209CEE]">
+          {/* <Image src={LOGO} width="40" height="40" alt="logo" /> */}
+          <span className="font-[Pacifico] text-6xl text-white">O</span>
+          <p className="text-xl lg:text-4xl font-bold rubik text-white">
             ne<span>Key</span>
           </p>
         </figure>
       </Link>
 
-      <nav>
-        <ul className="hidden lg:flex gap-8 sm:translate-x-20 lg:translate-x-40 dark:text-white">
-          <li className="flex-center gap-1">
-            Products <FaAngleDown />
-          </li>
-          <li className="flex-center gap-1">
-            Developers <FaAngleDown />
-          </li>
-          <li className="flex-center gap-1">
-            Resources <FaAngleDown />
-          </li>
-          <li className="flex-center gap-1">
-            About Us <FaAngleDown />
-          </li>
-        </ul>
-      </nav>
-
+      <NavigationMenuDemo />
       <div className="hidden lg:flex gap-4">
         <Link
           className="bg-accent text-white p-2 text-xl rounded"

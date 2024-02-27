@@ -64,7 +64,7 @@ export default function LoginupForm() {
             </Label>
             <Input
               id="password"
-              placeholder="Enter Password"
+              placeholder="Enter Password e"
               type="password"
               autoCapitalize="none"
               autoComplete="off"
@@ -77,7 +77,7 @@ export default function LoginupForm() {
             <p className="text-red-500">*Invalid Credentials</p>
           )}
           <Button disabled={isLoading} className="mt-12">
-            {isLoading && (
+            {true && (
               <TailSpin
                 visible={true}
                 height="10"

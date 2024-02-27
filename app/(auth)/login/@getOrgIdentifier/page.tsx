@@ -9,7 +9,7 @@ import OrgIdentifier from "@/components/forms/OrgIdentifier";
 
 export const metadata: Metadata = {
   title: "Login",
-  description: "Login",
+  description: "Enter Your Organization",
 };
 
 export default function LoginPage({
@@ -19,7 +19,6 @@ export default function LoginPage({
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  console.log(params, searchParams);
   return (
     <>
       <div className="w-9/12 m-auto mt-6 lg:mt-0 lg:w-auto container relative  h-[800px] flex-col items-center justify-center grid lg:max-w-none lg:px-0">
@@ -40,7 +39,7 @@ export default function LoginPage({
             </figure>
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
-                Enter Your Organization
+              Enter your Organization
               </h1>
             </div>
             <OrgIdentifier />
@@ -50,3 +49,23 @@ export default function LoginPage({
     </>
   );
 }
+
+
+// confirm_password
+// : 
+// "fd"
+// email
+// : 
+// "organization@gmail.com"
+// org_identifier
+// : 
+// "earthling"
+// password
+// : 
+// "#Human@123"
+// preferred_name
+// : 
+// "human"
+// username
+// : 
+// "testAdmin"
