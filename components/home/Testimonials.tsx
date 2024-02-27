@@ -80,7 +80,7 @@ const Testimonial: React.FC = () => {
           Testimonials
         </h2>
         <div className="flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg">
             <h3 className="text-lg font-semibold mb-2">
               {testimonials[currentTestimonial].name}
             </h3>

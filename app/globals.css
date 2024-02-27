@@ -34,12 +34,11 @@ body {
   font-family: "Roboto";
 }
 .gradient-1 {
-  background: rgb(0, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 36, 1) 0%,
-    rgba(67, 9, 121, 0.9529061624649859) 35%,
-    rgba(0, 212, 255, 1) 100%
+  background: rgb(183, 174, 238);
+  background: radial-gradient(
+    circle,
+    rgba(183, 174, 238, 1) 0%,
+    rgba(148, 204, 233, 1) 100%
   );
 }
 

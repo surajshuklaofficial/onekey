@@ -10,10 +10,9 @@ FROM node:21-alpine
 # # Use production node environment by default.
 # ENV NODE_ENV production
 
-
 WORKDIR /usr/src/app
 
-# COPY package*.json .
+COPY package*.json .
 
 # RUN npm install
 
