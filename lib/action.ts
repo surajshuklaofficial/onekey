@@ -30,10 +30,12 @@ export const loginAsync = async (data: Credentials) => {
   try {
     response = await signIn(data);
   } catch (error: any) {
+    console.log(error)
     console.log("Error due to loginAsync")
-    throw error?.response?.data?.detail; // response.status === 401 will be handled on loginform
+    // throw error?.response?.data?.detail; // response.status === 401 will be handled on loginform
   }
-
+  
+  console.log(response)
   if (response && response.status === 200) {
     redirect("/dashboard");
   }
@@ -85,3 +87,24 @@ export const authorizeAsync = async () => {
 //     console.log(e);
 //   }
 // };
+
+
+// {email: 'ocean@gmail.com', username: 'aquaman', org_identifier: 'oceanworld', preferred_name: 'bluefish', password: '#Auaman@123', …}
+// confirm_password
+// : 
+// "a"
+// email
+// : 
+// "ocean@gmail.com"
+// org_identifier
+// : 
+// "oceanworld"
+// password
+// : 
+// "#Auaman@123"
+// preferred_name
+// : 
+// "bluefish"
+// username
+// : 
+// "aquaman"
