@@ -1,7 +1,7 @@
 import axios from "axios";
 // TODO: ditch axios if possible and use next.js fetch instead
 
-const API = axios.create({ baseURL: "http://localhost:8000" });
+const API = axios.create({ baseURL: "http://api" });
 
 const config = {
   headers: {

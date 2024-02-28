@@ -6,9 +6,16 @@ import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { loginAsync } from "@/lib/action";
 import { TailSpin } from "react-loader-spinner";
 import { useState } from "react";
+import axios from "axios";
+const config = {
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+};
+
+const API = axios.create({ baseURL: "http://api.localhost.localdomain" });
 
 // TODO: Handle other Signins
 export default function LoginupForm() {
@@ -31,6 +38,40 @@ export default function LoginupForm() {
       scope: "principal-user:admin",
     };
 
+    const signIn = (data: Credentials) =>
+      API.post(
+        `/auth/passwordflow/token?set_cookie=true&org_identifier=${data.org_identifier}`,
+        data,
+        config
+      );
+
+    const loginAsync = async (data: Credentials) => {
+      let response;
+      // console.log("Hi", data);
+      try {
+        response = await signIn(data);
+        console.log(response);
+      } catch (error: any) {
+        console.log("Error due to loginAsync");
+        console.log(error);
+        // throw error?.response?.data?.detail; // response.status === 401 will be handled on loginform
+      }
+      console.log(response?.data);
+      // const { access_token, expires_in } = response?.data;
+
+      // cookies().set({
+      //   name: "access_token",
+      //   value: "access_token",
+      //   httpOnly: true,
+      //   secure: false,
+      //   sameSite: "strict",
+      //   path: "/",
+      // });
+
+      // if (response && response.status === 200) {
+      //   redirect("/dashboard");
+      // }
+    };
     loginAsync(data).catch((err) => {
       console.log(err);
       setError("error", { type: "custom", message: err.message });
@@ -73,9 +114,7 @@ export default function LoginupForm() {
               {...register("password", { required: true })}
             />
           </div>
-          {errors.error && (
-            <p className="text-red-500">*Invalid Credentials</p>
-          )}
+          {errors.error && <p className="text-red-500">*Invalid Credentials</p>}
           <Button disabled={isLoading} className="mt-12">
             {true && (
               <TailSpin

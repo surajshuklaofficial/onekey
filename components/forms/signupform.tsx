@@ -5,10 +5,18 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signupAsync } from "@/lib/action";
+// import { signupAsync } from "@/lib/action";
 import { useState } from "react";
+import axios from "axios";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+const config = {
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+};
+
+const API = axios.create({ baseURL: "http://localhost.localdomain:8000" });
 
 export default function SignupForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -22,6 +30,23 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
   const onSubmit: SubmitHandler<AuthData> = (data) => {
     console.log(data);
     setIsLoading(true);
+    const signup = (authData: AuthData) =>
+      API.post("/register/principal-user-admin", authData, config);
+
+    const signupAsync = async (userAuthInfo: AuthData) => {
+      let response;
+      try {
+        response = await signup(userAuthInfo);
+      } catch (e) {
+        console.log("Error due to signupAsync");
+        console.log(e);
+      }
+      console.log(response);
+
+      // if (response && response.status === 200) {
+      //   redirect("/verification-sent");
+      // }
+    };
     signupAsync(data).catch((err) => {
       console.log(err);
       setError("error", { type: "custom", message: err.message });
@@ -39,7 +64,7 @@ export default function SignupForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id="email"
-              placeholder="Enter your Email*"
+              placeholder="Enter your Emai*"
               type="email"
               autoCapitalize="none"
               autoComplete="off"
