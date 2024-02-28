@@ -16,7 +16,7 @@ const config = {
   },
 };
 
-const API = axios.create({ baseURL: "http://localhost.localdomain:8000" });
+const API = axios.create({ baseURL: "http://api.localhost.localdomain" });
 
 export default function SignupForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
