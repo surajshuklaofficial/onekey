@@ -29,13 +29,10 @@ export const authorize = () => API.get("/me");
 
 // ------------------------------ Organization Admin ------------------------------
 export const fetchPersons = (org_identifier: string) => API.get(`/${org_identifier}/users/list?limit=1000&offset=0`);
-
+export const createUser = (org_identifier: string) => API.post(`/${org_identifier}/users/create`, config);
+export const promoteUser = (userInfo: UserInfo) => API.post(`/${userInfo.org_identifier}/users/${userInfo.user_id}/promote`);
+export const demoteUser = (userInfo: UserInfo) => API.post(`/${userInfo.org_identifier}/users/${userInfo.user_id}/demote`);
+export const deleteUser = (userInfo: UserInfo) => API.delete(`/${userInfo.org_identifier}/users/${userInfo.user_id}/delete`);
 
 // export const verify = (verificationData: VerificationData) => API.post("/principal-user-admin/verify", verificationData, config)
 // export const sendVerificationCode = (authorizationData: AuthorizationData) => API.post("http://127.0.0.1:8000/oauth2/token", authorizationData, config)
-
-// export const fetchUsers = ({limit, offset, q}: FetchParams) => API.post(`principal-user-admin/users/list?limit=${limit}&offset=${offset}&q=${q}`);
-// export const fetchUsers = ({pageIndex, pageSize}: PaginationState) => API.get(`http://localhost:8080/data?_page=${pageIndex + 1}&_per_page=${pageSize}`);
-// export const fetchAllUsers = () => API.get(`http://localhost:8080/data`);
-
-// export const createUser = (person: Person) => API.post("http://localhost:8080/data", person)

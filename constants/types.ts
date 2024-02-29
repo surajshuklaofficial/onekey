@@ -30,11 +30,13 @@ interface AuthorizationData {
   clientSecret: string;
 }
 
-interface UserProfile {
+interface UserInfo {
   fullName: string;
   status: "onboarding"; // Assuming this is a status during user registration
   primaryEmail: string;
   username: string;
   password: string;
+  org_identifier?: string;
+  user_id?: string;
 }
 
