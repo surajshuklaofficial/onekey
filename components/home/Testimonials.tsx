@@ -52,11 +52,10 @@ const Testimonial: React.FC = () => {
           : currentTestimonial + 1
       );
     }, 2000);
-  
+
     return () => clearInterval(intervalId);
   }, [currentTestimonial]); // You should add currentTestimonial to the dependency array since you're using it inside the effect
-  
-  
+
   const handleNext = () => {
     setCurrentTestimonial(
       currentTestimonial === testimonials.length - 1
@@ -74,7 +73,7 @@ const Testimonial: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-200 py-12">
+    <div className="py-12 gradient-1 min-h-[650px] sm:min-h-0  flex justify-between flex-col">
       <div className="max-w-3xl mx-auto p-2">
         <h2 className="text-3xl font-semibold mb-8 text-center">
           Testimonials
@@ -89,20 +88,20 @@ const Testimonial: React.FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex gap-2 w-full items-center justify-center p-4"> 
-          <button
-            onClick={handlePrev}
-            className="border rounded-full p-2 w-8 h-8 flex-center bg-white shadow"
-          >
-            &lt;
-          </button>
-          <button
-            onClick={handleNext}
-            className="border rounded-full p-2 w-8 h-8 flex-center bg-white shadow"
-          >
-            &gt;
-          </button>
-        </div>
+      </div>
+      <div className="flex gap-2 w-full items-center justify-center p-4">
+        <button
+          onClick={handlePrev}
+          className="border rounded-full p-2 w-8 h-8 flex-center bg-white shadow"
+        >
+          &lt;
+        </button>
+        <button
+          onClick={handleNext}
+          className="border rounded-full p-2 w-8 h-8 flex-center bg-white shadow"
+        >
+          &gt;
+        </button>
       </div>
     </div>
   );

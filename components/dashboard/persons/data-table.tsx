@@ -11,6 +11,7 @@ import {
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -26,7 +27,7 @@ import {
 
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
-import { fetchUsersAsync } from "@/lib/action";
+import { fetchPersonsAsync } from "@/lib/action";
 import { useEffect, useMemo, useState } from "react";
 
 interface DataTableProps<TData, TValue> {
@@ -54,8 +55,8 @@ export function DataTable<TData, TValue>({
   useEffect(() => {
 
     const call = async () => {
-      const t = await fetchUsersAsync(pagination);
-      setNewData(t);
+      const t = await fetchPersonsAsync();
+      if (t !== undefined ) setNewData(t);
       // console.log(t);
     }
 
@@ -73,11 +74,11 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       columnFilters,
-      pagination,
+      // pagination,
     },
-    onPaginationChange: setPagination,
-    manualPagination: true,
-    // getPaginationRowModel: getPaginationRowModel(),
+    // onPaginationChange: setPagination,
+    // manualPagination: true,
+    getPaginationRowModel: getPaginationRowModel(),
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,

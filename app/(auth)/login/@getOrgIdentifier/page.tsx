@@ -23,7 +23,7 @@ export default function LoginPage({
     <>
       <div className="w-9/12 m-auto mt-6 lg:mt-0 lg:w-auto container relative  h-[800px] flex-col items-center justify-center grid lg:max-w-none lg:px-0">
         <Link
-          href="/signup"
+          href="/register"
           className={cn(
             buttonVariants({ variant: "link" }),
             "absolute left-4 top-4 md:left-8 md:top-8"

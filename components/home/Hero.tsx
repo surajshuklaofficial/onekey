@@ -4,7 +4,7 @@ import HERO from "@/public/assets/Designer (7).png";
 
 export default function Hero() {
   return (
-    <main className="flex flex-col lg:flex-row lg:gap-12 justify-center items-center p-8 gap-16">
+    <main className="flex flex-col lg:flex-row lg:gap-12 justify-center items-center p-8 gap-16 pt-40">
       <section className="flex-1 lg:space-y-2">
         <h2 className="text-4xl lg:text-7xl font-[Roboto] font-bold text-gray-700 text-center lg:text-left">
           One Login, Many Services
@@ -21,7 +21,7 @@ export default function Hero() {
           </button>
         </div>
       </section>
-      <section className="flex-1 flex-center">
+      <section className="flex-1 flex-end">
         <Image
           src={HERO}
           alt="hero"

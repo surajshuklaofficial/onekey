@@ -1,3 +1,6 @@
+// users
+export const ADMIN_USER = "ADMIN_USER";
+
 export const sidebarOptions = [
     { url: "/dashboard", name: "Dashboard" },
     { url: "/dashboard/persons", name: "Persons" },

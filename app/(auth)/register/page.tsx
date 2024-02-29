@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import SignupForm from "../../../components/forms/signupform";
+import RegistrationForm from "../../../components/forms/registrationform";
 import LOGO from "@/public/logo.png";
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default function RegisterPage() {
                 Enter your email below to create your account
               </p>
             </div>
-            <SignupForm />
+            <RegistrationForm />
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link

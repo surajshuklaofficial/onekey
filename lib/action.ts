@@ -1,70 +1,51 @@
-"use server";
-
-import { redirect } from "next/navigation";
-
 import {
   authorize,
   // createUser,
   // fetchAllUsers,
-  fetchUsers,
-  signIn,
-  signup,
+  fetchPersons,
+  register,
+  login,
 } from "./api";
-import { cookies } from "next/headers";
 
-export const signupAsync = async (userAuthInfo: AuthData) => {
+export const registerAsync = async (registrationInfo: RegistrationInfo) => {
   let response;
+  console.log(registrationInfo);
   try {
-    response = await signup(userAuthInfo);
-  } catch (e) {
-    console.log("Error due to signupAsync");
-    console.log(e);
+    response = await register(registrationInfo);
+  } catch (error) {
+    console.log("Error due to registerAsync");
+    throw error;
   }
-  console.log(response);
-  if (response && response.status === 200) {
-    redirect("/verification-sent");
-  }
+  return response;
+  // if (response && response.status === 200) {
+  //   redirect("/verification-sent");
+  // }
 };
 
-export const loginAsync = async (data: Credentials) => {
+export const loginAsync = async (userCredentials: UserCredentials) => {
   let response;
-  console.log("Hi", data);
   try {
-    response = await signIn(data);
-    console.log(response);
-  } catch (error: any) {
+    response = await login(userCredentials);
+  } catch (error) {
     console.log("Error due to loginAsync");
-    console.log(error);
-    // throw error?.response?.data?.detail; // response.status === 401 will be handled on loginform
+    throw error;
   }
-  console.log(response?.data);
-  const {access_token, expires_in}  = response?.data;
 
-  cookies().set({
-    name: 'access_token',
-    value: 'access_token',
-    httpOnly: true,
-    secure: false,
-    sameSite: "strict",
-    path: '/',
-  })
-
-  if (response && response.status === 200) {
-    redirect("/dashboard");
-  }
+  return response;
+  // if (response && response.status === 200) {
+  //   redirect("/dashboard");
+  // }
 };
 
 export const authorizeAsync = async () => {
   let response;
-
   try {
     response = await authorize();
-    console.log(response);
-  } catch (error: any) {
+  } catch (error) {
     console.log("Error due to authorizeAsync");
     // throw error?.response?.data?.detail; // response.status === 401 will be handled on loginform
   }
-  console.log(response);
+  return response;
 };
 
 // export const fetchUsersAsync = async ({
@@ -101,17 +82,20 @@ export const authorizeAsync = async () => {
 //   }
 // };
 
-export const fetchUsersAsync = async () => {
-  let response;
+export const fetchPersonsAsync = async () => {
+  const orgIdentifier: string | null = localStorage.getItem("org_identifier");
 
-  try {
-    response = await fetchUsers();
-    console.log(response);
-    return { data: [], count: 0};
-  } catch (error: any) {
-    console.log("Error due to fetchUsersAsync");
-    // throw error?.response?.data?.detail; // response.status === 401 will be handled on loginform
+  if (orgIdentifier !== null) {
+    try {
+      const response = await fetchPersons(orgIdentifier);
+      console.log(response);
+      return { data: [], count: 0 };
+    } catch (error) {
+      console.log("Error due to fetchPersonsAsync");
+      throw error;
+    }
+  } else {
+    console.error("Organization identifier not found in localStorage.");
+    // Handle case where organization identifier is not found
   }
-  console.log("user", response);
-  return { data: [], count: 0};
 };

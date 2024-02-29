@@ -1,35 +1,29 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TailSpin } from "react-loader-spinner";
 import { useState } from "react";
-import axios from "axios";
-const config = {
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-};
-
-const API = axios.create({ baseURL: "http://api.localhost.localdomain" });
+import { loginAsync } from "@/lib/action";
 
 // TODO: Handle other Signins
 export default function LoginupForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const searchParams = useSearchParams();
-
+  const router = useRouter();
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<Credentials>();
+  } = useForm<UserCredentials>();
 
-  const onSubmit: SubmitHandler<Credentials> = (data) => {
+  const onSubmit: SubmitHandler<UserCredentials> = (data) => {
     setIsLoading(true);
     const org_identifier = searchParams.get("org_identifier");
     data = {
@@ -38,44 +32,15 @@ export default function LoginupForm() {
       scope: "principal-user:admin",
     };
 
-    const signIn = (data: Credentials) =>
-      API.post(
-        `/auth/passwordflow/token?set_cookie=true&org_identifier=${data.org_identifier}`,
-        data,
-        config
-      );
-
-    const loginAsync = async (data: Credentials) => {
-      let response;
-      // console.log("Hi", data);
-      try {
-        response = await signIn(data);
-        console.log(response);
-      } catch (error: any) {
-        console.log("Error due to loginAsync");
-        console.log(error);
-        // throw error?.response?.data?.detail; // response.status === 401 will be handled on loginform
-      }
-      console.log(response?.data);
-      // const { access_token, expires_in } = response?.data;
-
-      // cookies().set({
-      //   name: "access_token",
-      //   value: "access_token",
-      //   httpOnly: true,
-      //   secure: false,
-      //   sameSite: "strict",
-      //   path: "/",
-      // });
-
-      // if (response && response.status === 200) {
-      //   redirect("/dashboard");
-      // }
-    };
-    loginAsync(data).catch((err) => {
-      console.log(err);
-      setError("error", { type: "custom", message: err.message });
-    });
+    loginAsync(data)
+      .then((response) => {
+          console.log(response);
+          router.push("/dashboard");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("error", { type: "custom", message: err.message });
+      });
 
     setIsLoading(false);
   };
@@ -89,8 +54,7 @@ export default function LoginupForm() {
               Username
             </Label>
             <Input
-              id="username"
-              placeholder="username"
+              placeholder="Username"
               type="string"
               autoCapitalize="none"
               autoComplete="off"
@@ -104,8 +68,7 @@ export default function LoginupForm() {
               Password
             </Label>
             <Input
-              id="password"
-              placeholder="Enter Password e"
+              placeholder="Enter Password"
               type="password"
               autoCapitalize="none"
               autoComplete="off"
@@ -116,7 +79,7 @@ export default function LoginupForm() {
           </div>
           {errors.error && <p className="text-red-500">*Invalid Credentials</p>}
           <Button disabled={isLoading} className="mt-12">
-            {true && (
+            {isLoading && (
               <TailSpin
                 visible={true}
                 height="10"
@@ -128,7 +91,7 @@ export default function LoginupForm() {
                 wrapperClass=""
               />
             )}
-            Sign In
+            Log In
           </Button>
         </div>
       </form>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const CallToAction: React.FC = () => {
     return (
-        <div className="bg-gray-100 py-6 text-center">
+        <div className="bg-blue-100 py-6 text-center">
             <h2 className="text-xl font-semibold mb-2">Are you a Service Provider or Organization Admin?</h2>
             <p className="text-gray-600 mb-4">Join OneKey today and streamline your authentication process.</p>
             <div className="flex justify-center">

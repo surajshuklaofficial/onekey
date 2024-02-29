@@ -1,8 +1,8 @@
-type AuthData = {
+type RegistrationInfo = {
   email: string;
   username: string;
   password: string;
-  org_identifier: string;
+  org_identifier: string; // Renamed for clarity
   preferred_name?: string;
   confirm_password: string;
   error?: string;
@@ -11,33 +11,30 @@ type AuthData = {
 type VerificationData = {
   verificationCode: string | null;
 };
-interface Credentials {
+
+interface UserCredentials {
   email?: string;
   username?: string;
   password: string;
-  client_id: string;
+  clientId: string;
   scope: "profile" | "principal-user:admin";
   org_identifier: string;
-  error?: string
+  error?: string;
 }
-
-// interface FetchParams {
-//   pageCount
-//   pageIndex: number
-// };
 
 interface AuthorizationData {
-  grant_type: "authorization_code";
+  grantType: "authorization_code";
   code: string | null;
-  redirect_uri: string;
-  client_id: string;
-  client_secret: string;
+  redirectUri: string;
+  clientId: string;
+  clientSecret: string;
 }
 
-interface Person {
-  person: "suraj shukla";
-  status: "on boarding";
-  primary_email: string;
+interface UserProfile {
+  fullName: string;
+  status: "onboarding"; // Assuming this is a status during user registration
+  primaryEmail: string;
   username: string;
   password: string;
 }
+

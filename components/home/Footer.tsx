@@ -25,7 +25,7 @@ const contactInfo = [
 
 const SimpleFooter: React.FC = () => {
   return (
-    <footer className="bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200 pt-8">
+    <footer className="gradient-1 text-gray-800 dark:bg-gray-800 dark:text-gray-200 pt-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
@@ -69,7 +69,7 @@ const SimpleFooter: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-gray-100 dark:bg-gray-700 py-4">
+      <div className="py-4">
         <div className="container mx-auto px-4 text-center">
           <p className="text-gray-600 dark:text-gray-300">&copy;2024 Onekey. All rights reserved.</p>
         </div>
