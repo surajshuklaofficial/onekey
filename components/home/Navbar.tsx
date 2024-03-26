@@ -33,7 +33,7 @@ export default function Navbar() {
   return (
     <header className="p-4 lg:px-16 lg:py-6 flex items-center justify-between w-full fixed top-0 gradient- backdrop-blur-sm">
       <Link href="/">
-        <figure className="flex items-center gap-0.5">
+        <figure className="flex items-center">
           {/* <Image src={LOGO} width="60" height="60" alt="logo" /> */}
           <span className="font-[Pacifico] text-4xl lg:text-6xl text-white">O</span>
           <p className="text-xl lg:text-4xl font-bold rubik text-white">
